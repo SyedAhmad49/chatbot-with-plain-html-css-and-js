@@ -193,7 +193,7 @@ body {font-family: botplatform-font, Helvetica-Neue, Helvetica, Arial,sans-serif
   });
 function inputChange(event) {
   event.preventDefault()
-  if(event.target.value.trim().length > 0 && document.getElementById('spinner').style.display === 'none') {
+  if(event.target.value.trim().length > 0 && document.getElementById('spinner').style.display !== 'block') {
     document.getElementById('sndButton').style.display = 'block'
   } else {
     document.getElementById('sndButton').style.display = 'none'
@@ -323,7 +323,7 @@ function sndMessage() {
   .then(res => {
     // Process the JSON response data
     document.getElementById('spinner').style.display = 'none'
-    document.getElementById('sndButton').style.display = 'blocks'
+    document.getElementById('sndButton').style.display = 'block'
     const responseMessage = { bot : res, type:'bot' }
     addBotMessage(responseMessage)
   })
@@ -338,7 +338,9 @@ function sndMessage() {
 function handleKeyDown(event) {
   if (event.key === 'Enter') {
     event.preventDefault()
-    sndMessage();
+    if(document.getElementById('spinner').style.display !== 'block') {
+      sndMessage();
+    }
   }
 }       
 </script>
