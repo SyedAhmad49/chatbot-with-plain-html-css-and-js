@@ -15,12 +15,12 @@ body {font-family: botplatform-font, Helvetica-Neue, Helvetica, Arial,sans-serif
   padding: 16px 20px;
   border: none;
   cursor: pointer;
-  opacity: 0.8;
+  /* opacity: 0.8; */
   position: fixed;
   border-width: 0px;
   bottom: 23px;
   right: 28px;
-	border-radius: 100px;
+	border-radius: 100%;
   user-select: none;
 }
 #close-button {
@@ -34,6 +34,7 @@ body {font-family: botplatform-font, Helvetica-Neue, Helvetica, Arial,sans-serif
   bottom: 120px;
   right: 15px;
   border: 1px solid #f1f1f1;
+  background-color: rgb(245, 250, 255);
   z-index: 9;
   /* box-shadow: 2px 10px #f6f6f6; */
 }
@@ -43,10 +44,11 @@ body {font-family: botplatform-font, Helvetica-Neue, Helvetica, Arial,sans-serif
   max-width: 420px;
   min-width: 420px;
   /* padding: 10px; */
-  background-color: white;
+  /* background-color: white; */
   overflow-y: auto;
   /* overflow-x:hidden; */
-  height: 500px;
+  /* height: 500px; */
+  height: 70%;
   margin-bottom: 50px;
 }
 
@@ -163,7 +165,7 @@ body {font-family: botplatform-font, Helvetica-Neue, Helvetica, Arial,sans-serif
       </div>
   </div>
 
-  <form  class="form-container" id="form-id" style="background-color: rgb(245, 250, 255);">
+  <form  class="form-container" id="form-id" style="height: 80%;">
     <div id="chat-container" style="margin-top: 1rem;"></div>
     <div  class="styleInputGroup">
       <input type="text" id="messageId" placeholder="Type your message" oninput="inputChange(event)" onkeydown="handleKeyDown(event)" class="styleInput"/>
@@ -329,6 +331,7 @@ function sndMessage() {
   })
   .catch(error => {
     // Handle errors
+    document.getElementById('sndButton').style.display = 'block'
     console.error('Fetch error:', error);
   })
   } else {
@@ -342,7 +345,41 @@ function handleKeyDown(event) {
       sndMessage();
     }
   }
-}       
+}
+function applyMediaQueryStyles() {
+    const myFormElement = document.getElementById('myForm')
+    const myPopupElement = document.getElementById('form-id')
+  if (window.innerWidth <= 442) {
+    if(myFormElement) {
+      myFormElement.style.height = '80%';
+      myFormElement.style.width = '100%';
+      myFormElement.style.right = '0 !important';
+      myFormElement.style.maxHeight = '80%';
+    }
+    if(myPopupElement) {
+      myPopupElement.style.maxWidth = '100%';
+      myPopupElement.style.width = '98%';
+      myFormElement.style.maxHeight = '80%';
+    }
+  } else {
+    if(myFormElement) {
+      myFormElement.style.maxWidth = "442px"
+      myFormElement.style.height = '80%';
+      // myFormElement.style.maxHeight = '500px';
+      myFormElement.style.maxHeight = '70%';
+    }
+    if(myPopupElement) {
+      myPopupElement.style.maxWidth = "442px"
+      myPopupElement.style.height = "80%"
+      // myPopupElement.style.maxHeight = "500px"
+      myPopupElement.style.maxHeight = "70%"
+    }
+  }
+}
+applyMediaQueryStyles();
+
+// Add a resize event listener to apply styles when the screen width changes
+window.addEventListener('resize', applyMediaQueryStyles)    
 </script>
       
 </body>
